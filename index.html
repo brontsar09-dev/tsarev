@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSAREV</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+overflow-x:hidden;
+overflow-y:auto;
+background:#000;
+min-height:100vh;
+}
+
+/* Главный экран */
+.hero{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+
+background:
+linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.30)),
+url("tsarev-bg.png");
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+transition:1s;
+}
+
+h1{
+color:#f5e6d3;
+font-size:90px;
+letter-spacing:12px;
+margin-bottom:30px;
+text-shadow:0 0 25px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 768px){
+  h1{font-size:56px;letter-spacing:6px;margin-bottom:18px;text-align:center;}
+  .start-btn{padding:14px 42px;font-size:18px;}
+}
+
+.start-btn{
+padding:16px 55px;
+border:none;
+border-radius:50px;
+
+font-size:20px;
+cursor:pointer;
+
+background:#f5e6d3;
+color:#222;
+
+transition:0.3s;
+}
+
+.start-btn:hover{
+transform:scale(1.05);
+}
+
+/* Магазин */
+.store{
+position:fixed;
+top:100%;
+left:0;
+
+width:100%;
+height:100vh;
+
+background:white;
+
+overflow-y:auto;
+
+transition:1s;
+
+padding:15px 20px;
+
+display:block;
+
+padding-bottom:120px;
+}
+
+.store h2{
+font-size:50px;
+margin-bottom:20px;
+}
+
+.story{
+max-width:900px;
+margin:120px auto;
+padding-bottom:120px;
+
+}
+
+.story h2{
+font-size:42px;
+margin-bottom:40px;
+color:#222;
+font-weight:600;
+}
+
+.story p{
+font-size:20px;
+line-height:1.9;
+color:#777;
+font-weight:300;
+}
+
+.buy-btn{
+margin-top:15px;
+padding:12px 28px;
+border:none;
+border-radius:14px;
+background:black;
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+width:180px;
+height:55px;
+}
+
+.buy-btn:disabled,
+.cart-btn:disabled{
+  cursor:not-allowed;
+  opacity:0.55;
+}
+
+.unavailable-badge{
+  position:absolute;
+  top:14px;
+  right:14px;
+  z-index:2;
+  padding:8px 10px;
+  border-radius:999px;
+  background:rgba(194, 62, 62, 0.95);
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  box-shadow:0 10px 18px rgba(0,0,0,0.18);
+}
+
+.store-card.unavailable{
+  opacity:0.92;
+}
+
+.price{
+font-size:18px;
+font-weight:600;
+color:#111;
+margin-top:10px;
+}
+
+.thailand-note{
+position:static;
+top:auto;
+right:auto;
+margin:0;
+font-size:15px;
+color:#4b3a2a;
+font-weight:700;
+text-align:right;
+letter-spacing:0.08em;
+text-transform:uppercase;
+text-shadow:0 1px 0 rgba(255,255,255,0.8);
+}
+
+.thailand-note:hover{
+  color:#1d130c;
+  transform:translateY(-2px) scale(1.02);
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:70px;
+background:white;
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid #ddd;
+z-index:500;
+
+pointer-events:auto;
+}
+
+.nav-btn{
+font-size:20px;
+font-weight:600;
+cursor:pointer;
+color:#777;
+}
+
+.nav-btn.active{
+color:black;
+}
+
+.lang-switcher{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+}
+
+.nav-group{
+display:flex;
+gap:18px;
+align-items:center;
+}
+
+.lang-btn{
+padding:10px 14px;
+border:1px solid transparent;
+border-radius:999px;
+background:#f4f0e5;
+color:#333;
+font-size:14px;
+font-weight:700;
+cursor:pointer;
+transition:0.2s;
+}
+
+.lang-btn.active{
+border-color:#000;
+background:#fff;
+}
+
+.buy-btn:hover{
+transform:scale(1.05);
+opacity:0.9;
+}
+
+.big-buy{
+margin-top:30px;
+font-size:18px;
+padding:14px 34px;
+}
+
+.placeholder{
+height:1200px;
+border:2px dashed #ddd;
+border-radius:20px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+color:#999;
+font-size:24px;
+}
+.products{
+    position: relative;
+    z-index: 5;
+
+    background: #f8f4ed;
+    padding: 120px 40px;
+
+    text-align: center;
+}
+
+.products h2{
+    font-size: 55px;
+    margin-bottom: 60px;
+    color: #8a5c2e;
+    letter-spacing: 6px;
+}
+
+.product-gallery{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card{
+    width: 320px;
+    overflow: hidden;
+
+    border-radius: 25px;
+
+    transition: 0.4s;
+
+    cursor: pointer;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.card img{
+    width: 100%;
+    display: block;
+}
+
+.card:hover{
+    transform: scale(1.04);
+}
+
+.product-text{
+    max-width: 900px;
+    margin: 70px auto 0;
+
+    font-size: 20px;
+    line-height: 1.8;
+
+    color: #5c4b3a;
+}
+
+.store{
+padding:40px 24px 40px;
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+}
+
+.store-grid{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+  margin-top:20px;
+  padding-bottom:40px;
+}
+
+.store-flavor-panel{
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content:flex-start;
+  align-items:stretch;
+  gap:18px;
+  width:fit-content;
+  max-width:100%;
+  padding:16px;
+  border:1px solid #eadbc9;
+  border-radius:30px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(248,243,236,0.96) 100%);
+  box-shadow:0 18px 36px rgba(79, 52, 30, 0.12);
+}
+
+.store-card{
+position:relative;
+width:240px;
+flex:0 0 240px;
+max-width:100%;
+background:white;
+border:1px solid #eadbc9;
+border-radius:25px;
+padding:15px;
+
+cursor:pointer;
+
+transition:0.3s;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+
+margin-top:0;
+}
+
+.store-card:hover{
+transform:translateY(-8px) scale(1.02) rotate(-1deg);
+box-shadow:0 24px 40px rgba(139, 92, 46, 0.28);
+}
+
+.store-card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:27px;
+  background:linear-gradient(135deg, rgba(255,214,153,0.35), rgba(139,92,46,0.18), rgba(255,255,255,0.2));
+  opacity:0;
+  z-index:-1;
+  transition:opacity 0.25s ease, transform 0.25s ease;
+  transform:scale(0.96);
+}
+
+.store-card:hover::before{
+  opacity:1;
+  transform:scale(1);
+}
+
+.store-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:25px;
+  background:linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0));
+  opacity:0;
+  transition:opacity 0.25s ease;
+  pointer-events:none;
+}
+
+.store-card:hover::after{
+  opacity:1;
+}
+
+.store-card img{
+width:100%;
+border-radius:20px;
+}
+
+.store-card h3{
+margin-top:15px;
+font-size:24px;
+}
+
+.store-card p{
+opacity:0.7;
+}
+
+.product-view{
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,0.7);
+
+display:none;
+justify-content:center;
+align-items:flex-start;
+padding:12px;
+overflow-y:auto;
+
+z-index:15000;
+}
+
+.viewer-content{
+width:92%;
+max-width:1100px;
+max-height:calc(100vh - 24px);
+overflow-y:auto;
+
+background:white;
+
+border-radius:30px;
+
+padding:40px;
+
+position:relative;
+
+display:flex;
+gap:40px;
+
+flex-wrap:wrap;
+}
+
+.close-view{
+position:absolute;
+
+top:20px;
+right:30px;
+
+font-size:40px;
+
+cursor:pointer;
+}
+
+.viewer-images{
+flex:1;
+min-width:300px;
+}
+
+.viewer-images img{
+width:100%;
+border-radius:25px;
+}
+
+.small-images{
+display:flex;
+gap:15px;
+
+margin-top:20px;
+}
+
+.small-images img{
+width:90px;
+
+border-radius:15px;
+
+cursor:pointer;
+}
+
+.viewer-text{
+flex:1;
+min-width:300px;
+
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.viewer-text h2{
+font-size:42px;
+margin-bottom:20px;
+}
+
+.viewer-text p{
+font-size:20px;
+line-height:1.8;
+}
+
+.main-product-image{
+width:100%;
+border-radius:25px;
+}
+
+.small-images{
+display:flex;
+gap:12px;
+overflow-x:auto;
+margin-top:15px;
+padding-bottom:10px;
+}
+
+.small-images img{
+width:85px;
+height:85px;
+object-fit:cover;
+border-radius:15px;
+flex-shrink:0;
+cursor:pointer;
+}
+
+.store-top{
+position:absolute;
+top:18px;
+left:18px;
+right:18px;
+z-index:20;
+}
+
+.store-top h2{
+margin-bottom:15px;
+}
+
+.nav-btn{
+font-size:20px;
+font-weight:600;
+cursor:pointer;
+color:#777;
+}
+
+.nav-btn.active{
+color:black;
+}
+
+.cart-btn{
+margin-top:10px;
+padding:12px 28px;
+border:none;
+border-radius:14px;
+background:#f1f1f1;
+color:#111;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+width:180px;
+height:55px;
+transition:0.3s;
+}
+
+.cart-btn:hover{
+transform:scale(1.05);
+background:#e5e5e5;
+}
+
+.contacts-btn,
+.facts-btn{
+margin-top:15px;
+padding:12px 28px;
+border:none;
+border-radius:14px;
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+width:auto;
+height:55px;
+transition:0.3s;
+}
+
+.contacts-btn{
+background:#2c7be5;
+}
+
+.contacts-btn:hover{
+transform:scale(1.05);
+background:#1f5bb8;
+}
+
+.facts-btn{
+background:#8a5c2e;
+}
+
+.facts-btn:hover{
+transform:scale(1.05);
+background:#6f8220;
+}
+
+.store-actions{
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+gap:8px;
+flex-wrap:wrap;
+margin-bottom:12px;
+width:100%;
+}
+
+.store-status{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  text-align:right;
+  margin-left:auto;
+  margin-bottom:2px;
+}
+
+.store-controls{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+  margin-left:auto;
+}
+
+.flavor-note{
+  margin:0;
+  color:#8a5c2e;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+}
+
+@media (max-width: 768px){
+
+  .store-actions{
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+  }
+
+  .store-grid{
+    margin-top:220px;
+  }
+
+  .store-card{
+    width:100%;
+    max-width:420px;
+  }
+
+  .products h2{
+    font-size:36px;
+    letter-spacing:3px;
+  }
+
+  .product-gallery{
+    gap:18px;
+  }
+
+  .card{
+    width:100%;
+  }
+
+  .games-section{
+    padding:24px 16px;
+  }
+
+  .games-grid{
+    grid-template-columns:1fr;
+  }
+
+  .bottom-nav{
+    height:auto;
+    flex-direction:column;
+    padding:10px;
+    gap:8px;
+  }
+
+  .lang-switcher{
+    justify-content:center;
+  }
+
+  .lang-btn{
+    font-size:12px;
+    padding:6px 8px;
+  }
+
+}
+
+.about-btn{
+  margin-top: 15px;
+  padding: 12px 18px;
+  border: 1px solid #d8cbb8;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fffaf4 0%, #f2e6d8 100%);
+  color: #3d2d1d;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(79, 52, 30, 0.13);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.about-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 14px 24px rgba(79, 52, 30, 0.18);
+  background: linear-gradient(135deg, #fffdfa 0%, #efe2d1 100%);
+}
+
+.capacity-note{
+font-size:14px;
+color:#6b6b6b;
+font-weight:600;
+margin:0;
+}
+
+.big-cart{
+margin-top:15px;
+}
+
+.qty-control{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:10px 0 12px;
+  padding:6px 8px;
+  border:1px solid #e4d8ca;
+  border-radius:999px;
+  background:#fffaf6;
+  width:fit-content;
+}
+
+.qty-btn{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  border:1px solid #d7c3a5;
+  background:#fff;
+  color:#3b2a1d;
+  font-size:18px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.qty-value{
+  min-width:24px;
+  text-align:center;
+  font-weight:800;
+  color:#3b2a1d;
+}
+
+.qty-note{
+  margin:0 0 8px;
+  color:#6e5c46;
+  font-size:13px;
+  font-weight:700;
+}
+
+</style>
+
+<div class="hero" id="hero">
+<h1>TSAREV</h1>
+
+<button id="startBtn" class="start-btn" data-i18n-key="startBtn" onclick="openStore()">
+START
+</button>
+</div>
+
+<div class="store" id="store">
+<div class="store-top">
+<h2 id="storeTitle" data-i18n-key="storeTitle">TSAREV STORE</h2>
+
+<div class="store-actions">
+  <div class="store-status">
+    <p class="thailand-note" id="availabilityNote" data-i18n-key="availability">Available in Russia</p>
+    <p class="capacity-note" id="capacityNote" data-i18n-key="capacityNote">Capacity: <span id="capacityCount">0</span>/20</p>
+  </div>
+  <div class="store-controls">
+    <button id="aboutBtn" class="about-btn" data-i18n-key="aboutBtn" onclick="window.location.href='about.html'">О нас</button>
+    <button id="contactsBtn" class="contacts-btn" data-i18n-key="contactsBtn" onclick="window.location.href='contacts.html'">Contacts</button>
+    <button id="factsBtn" class="facts-btn" data-i18n-key="factsBtn" onclick="window.location.href='facts.html'">TSAREV Facts</button>
+  </div>
+</div>
+
+<div class="store-grid">
+  <p class="flavor-note" data-i18n-key="flavorNote">NATURAL MARMALADE WITHOUT CHEMISTRY WITH SUGAR</p>
+  <div class="store-flavor-panel">
+  <div class="store-card unavailable" onclick="openProduct()">
+  <span class="unavailable-badge" data-i18n-key="unavailableBadge">Temporarily unavailable</span>
+
+<img src="marmalade1.jpg">
+
+<h3 data-i18n-key="product1Title">TSAREV Mango</h3>
+
+<p data-i18n-key="product1Desc">Natural mango marmalade</p>
+
+<div class="price" data-i18n-key="mangoPrice">224 руб.</div>
+
+<div class="qty-note" data-i18n-key="qtyHint">Choose how many packs you want</div>
+<div class="qty-control" data-product-id="mango">
+  <button class="qty-btn" type="button" onclick="changeQty('mango', -1)">−</button>
+  <span class="qty-value" id="qty-mango">1</span>
+  <button class="qty-btn" type="button" onclick="changeQty('mango', 1)">+</button>
+</div>
+
+<button class="buy-btn" data-i18n-key="buy" onclick="goBuy(event, 'mango')" disabled>
+BUY
+</button>
+
+<button class="cart-btn" data-i18n-key="addToCart" onclick="addToCart(event, 'mango')" disabled>
+Add to Cart
+</button>
+
+  </div>
+
+  <div class="store-card" onclick="openAppleProduct()">
+
+<img src="apple1.jpg">
+
+<h3 data-i18n-key="product2Title">TSAREV Green Apple</h3>
+
+<p data-i18n-key="product2Desc">Natural green apple marmalade</p>
+
+<div class="price" data-i18n-key="applePrice">299 руб.</div>
+
+<div class="qty-note" data-i18n-key="qtyHint">Choose how many packs you want</div>
+<div class="qty-control" data-product-id="apple">
+  <button class="qty-btn" type="button" onclick="changeQty('apple', -1)">−</button>
+  <span class="qty-value" id="qty-apple">1</span>
+  <button class="qty-btn" type="button" onclick="changeQty('apple', 1)">+</button>
+</div>
+
+<button class="buy-btn" data-i18n-key="buy" onclick="goBuy(event, 'apple')">
+BUY
+</button>
+
+<button class="cart-btn" data-i18n-key="addToCart" onclick="addAppleToCart(event)">
+Add to Cart
+</button>
+
+  </div>
+  </div>
+</div>
+
+<div class="product-view" id="productView">
+
+<div class="viewer-content">
+
+<span class="close-view" onclick="closeProduct()">×</span>
+
+<div class="viewer-images">
+
+<img id="mainImage" class="main-product-image" src="marmalade1.jpg">
+
+</div>
+
+<div class="small-images">
+
+<img src="marmalade1.jpg" onclick="changeImage(this)">
+<img src="marmalade2.jpg" onclick="changeImage(this)">
+<img src="marmalade3.jpg" onclick="changeImage(this)">
+
+</div>
+
+<div class="viewer-text">
+
+<h2 data-i18n-key="product1ViewerTitle">TSAREV Mango</h2>
+
+<p data-i18n-key="product1ViewerDetails">
+Natural Mango Marmalade.<br>No chemicals, no flavor enhancers,<br>pure fruit and ingredients.<br><br>Ingredients:<br>Mango, sugar, high-quality pectin,<br>citric acid, water.
+</p>
+
+<p><b data-i18n-key="priceLabel">Price:</b> <span data-i18n-key="mangoPrice">224 руб.</span></p>
+
+<div class="qty-note" data-i18n-key="qtyHint">Choose how many packs you want</div>
+<div class="qty-control" data-product-id="mango">
+  <button class="qty-btn" type="button" onclick="changeQty('mango', -1)">−</button>
+  <span class="qty-value" id="qty-mango-view">1</span>
+  <button class="qty-btn" type="button" onclick="changeQty('mango', 1)">+</button>
+</div>
+
+<button class="buy-btn big-buy" data-i18n-key="buy" onclick="goBuy(event, 'mango')">
+BUY
+</button>
+
+<button class="cart-btn big-cart" data-i18n-key="addToCart" onclick="addToCart(event, 'mango')">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="product-view" id="appleProductView">
+
+<div class="viewer-content">
+
+<span class="close-view" onclick="closeAppleProduct()">×</span>
+
+<div class="viewer-images">
+
+<img id="appleMainImage" class="main-product-image" src="apple1.jpg">
+
+</div>
+
+<div class="small-images">
+
+<img src="apple1.jpg" onclick="changeAppleImage(this)">
+<img src="apple2.jpg" onclick="changeAppleImage(this)">
+<img src="apple3.jpg" onclick="changeAppleImage(this)">
+
+</div>
+
+<div class="viewer-text">
+
+<h2 data-i18n-key="product2ViewerTitle">TSAREV Green Apple</h2>
+
+<p data-i18n-key="product2ViewerDetails">
+Natural Green Apple Marmalade.<br>Soft texture, balanced sweetness<br>and natural apple taste.<br><br>Ingredients:<br>Apple, sugar, HM pectin,<br>citric acid, water.
+</p>
+
+<p><b data-i18n-key="priceLabel">Price:</b> <span data-i18n-key="applePrice">299 руб.</span></p>
+
+<div class="qty-note" data-i18n-key="qtyHint">Choose how many packs you want</div>
+<div class="qty-control" data-product-id="apple">
+  <button class="qty-btn" type="button" onclick="changeQty('apple', -1)">−</button>
+  <span class="qty-value" id="qty-apple-view">1</span>
+  <button class="qty-btn" type="button" onclick="changeQty('apple', 1)">+</button>
+</div>
+
+<button class="buy-btn big-buy" data-i18n-key="buy" onclick="goBuy(event, 'apple')">
+BUY
+</button>
+
+<button class="cart-btn big-cart" data-i18n-key="addToCart" onclick="addAppleToCart(event)">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="cart-items"></div>
+
+<script>
+
+
+const CAPACITY_LIMIT = 20;
+const WINDOW_MS = 1000;
+
+function getCapacityState(){
+  try {
+    return JSON.parse(localStorage.getItem('tsarevCapacityState') || '{"entries":[]}');
+  } catch (e) {
+    return { entries: [] };
+  }
+}
+
+function saveCapacityState(state){
+  localStorage.setItem('tsarevCapacityState', JSON.stringify(state));
+  updateCapacityBadge();
+}
+
+function updateCapacityBadge(){
+  const state = getCapacityState();
+  const countEl = document.getElementById('capacityCount');
+  if (countEl) countEl.textContent = String((state.entries || []).length);
+}
+
+function allowEntry(){
+  const now = Date.now();
+  const state = getCapacityState();
+
+  state.entries = (state.entries || []).filter(ts => now - ts < WINDOW_MS);
+
+  if (state.entries.length >= CAPACITY_LIMIT) {
+    return false;
+  }
+
+  state.entries.push(now);
+  saveCapacityState(state);
+  return true;
+}
+
+function openStore(){
+  if (!allowEntry()) {
+    alert('Maximum 20 visitors per second are allowed.');
+    return;
+  }
+
+  updateCapacityBadge();
+  document.getElementById('hero').style.top = "-100%";
+  document.getElementById('store').style.top = "0";
+  document.querySelector('.bottom-nav').style.display = "flex";
+}
+
+function openProduct(){
+document.getElementById("productView").style.display = "flex";
+}
+
+function closeProduct(){
+document.getElementById("productView").style.display = "none";
+}
+
+function changeImage(element){
+document.getElementById("mainImage").src = element.src;
+}
+
+function changeQty(productId, delta) {
+  const valueEl = document.getElementById('qty-' + productId) || document.getElementById('qty-' + productId + '-view');
+  if (!valueEl) return;
+
+  const nextValue = Math.max(1, Number(valueEl.textContent || '1') + delta);
+  valueEl.textContent = String(nextValue);
+
+  const viewEl = document.getElementById('qty-' + productId + '-view');
+  if (viewEl && valueEl !== viewEl) {
+    viewEl.textContent = String(nextValue);
+  }
+}
+
+function getSelectedQty(productId) {
+  const valueEl = document.getElementById('qty-' + productId) || document.getElementById('qty-' + productId + '-view');
+  return Math.max(1, Number(valueEl?.textContent || '1'));
+}
+
+function isUnavailable(productId) {
+  return productId === 'mango';
+}
+
+function goBuy(event, productId = 'mango'){
+  event.stopPropagation();
+
+  if (isUnavailable(productId)) {
+    alert((translations[currentLang] && translations[currentLang].unavailableAlert) || 'TSAREV Mango flavor is temporarily unavailable.');
+    return;
+  }
+
+  const quantity = getSelectedQty(productId);
+  localStorage.setItem('tsarevPendingOrder', JSON.stringify([{ productId, quantity }]));
+  window.location.href = "buy.html";
+}
+
+let currentLang = 'en';
+
+const productCatalog = {
+  mango: {
+    img: 'marmalade1.jpg',
+    titleKey: 'product1Title',
+    descKey: 'product1Desc',
+    price: '224 руб.'
+  },
+  apple: {
+    img: 'apple1.jpg',
+    titleKey: 'product2Title',
+    descKey: 'product2Desc',
+    price: '299 руб.'
+  }
+};
+
+function addToCart(event, productId = 'mango'){
+  event.stopPropagation();
+
+  if (isUnavailable(productId)) {
+    alert((translations[currentLang] && translations[currentLang].unavailableAlert) || 'TSAREV Mango flavor is temporarily unavailable.');
+    return;
+  }
+
+  const quantity = getSelectedQty(productId);
+  let cart = localStorage.getItem("cart");
+  cart = cart ? JSON.parse(cart) : [];
+
+  const existing = cart.find(item => item.productId === productId);
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
+    cart.push({ productId, quantity });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Added to cart");
+}
+
+function openAppleProduct(){
+document.getElementById("appleProductView").style.display = "flex";
+}
+
+function closeAppleProduct(){
+document.getElementById("appleProductView").style.display = "none";
+}
+
+function changeAppleImage(element){
+document.getElementById("appleMainImage").src = element.src;
+}
+
+function addAppleToCart(event){
+  addToCart(event, 'apple');
+}
+
+
+const translations = {
+  en: {
+    storeTitle: 'TSAREV STORE',
+    availability: 'Available in Russia',
+    factsBtn: 'TSAREV Facts',
+    contactsBtn: 'Contacts',
+    startBtn: 'START',
+    navStore: 'STORE',
+    navBasket: 'BASKET',
+    buy: 'BUY',
+    addToCart: 'Add to Cart',
+    qtyHint: 'Choose how many packs you want',
+    capacityNote: 'Max 20 visitors <span id="capacityCount">0</span>/sec',
+    product1Title: 'TSAREV Mango',
+    product1Desc: 'Natural mango marmalade',
+    product1ViewerTitle: 'TSAREV Mango',
+    product1ViewerDetails: 'Natural Mango Marmalade.<br>No chemicals, no flavor enhancers,<br>pure fruit and ingredients.<br><br>Ingredients:<br>Mango, sugar, high-quality pectin,<br>citric acid, water.',
+    product2Title: 'TSAREV Green Apple',
+    product2Desc: 'Natural green apple marmalade',
+    product2ViewerTitle: 'TSAREV Green Apple',
+    product2ViewerDetails: 'Natural Green Apple Marmalade.<br>Soft texture, balanced sweetness<br>and natural apple taste.<br><br>Ingredients:<br>Apple, sugar, HM pectin,<br>citric acid, water.',
+    flavorNote: 'NATURAL MARMALADE WITHOUT CHEMISTRY WITH SUGAR',
+    unavailableBadge: 'Temporarily unavailable',
+    unavailableAlert: 'TSAREV Mango flavor is temporarily unavailable.',
+    mangoPrice: '224 rubles',
+    applePrice: '299 rubles',
+    priceLabel: 'Price:',
+    aboutBtn: 'About us'
+  },
+  ru: {
+    storeTitle: 'МАГАЗИН TSAREV',
+    availability: 'Доступно в России',
+    factsBtn: 'TSAREV Факты',
+    contactsBtn: 'Соцсети',
+    startBtn: 'СТАРТ',
+    navStore: 'МАГАЗИН',
+    navBasket: 'КОРЗИНА',
+    buy: 'КУПИТЬ',
+    addToCart: 'В корзину',
+    qtyHint: 'Выберите, сколько пачек хотите купить',
+    capacityNote: 'Макс. 20 человек <span id="capacityCount">0</span>/сек',
+    product1Title: 'TSAREV Манго',
+    product1Desc: 'Натуральный манговый мармелад',
+    product1ViewerTitle: 'TSAREV Манго',
+    product1ViewerDetails: 'Натуральный манговый мармелад.<br>Без химии, без усилителей вкуса,<br>только чистые фрукты и ингредиенты.<br><br>Ингредиенты:<br>Манго, сахар, высококачественный пектин,<br>лимонная кислота, вода.',
+    product2Title: 'TSAREV Зеленое яблоко',
+    product2Desc: 'Натуральный мармелад из зеленого яблока',
+    product2ViewerTitle: 'TSAREV Зеленое яблоко',
+    product2ViewerDetails: 'Натуральный мармелад из зеленого яблока.<br>Мягкая текстура, сбалансированная сладость<br>и натуральный яблочный вкус.<br><br>Ингредиенты:<br>Яблоко, сахар, пектин HM,<br>лимонная кислота, вода.',
+    flavorNote: 'НАТУРАЛЬНЫЙ МАРМЕЛАД БЕЗ ХИМИИ С САХАРОМ',
+    unavailableBadge: 'Временно недоступно',
+    unavailableAlert: 'Вкус TSAREV Манго временно недоступен.',
+    mangoPrice: '224 рубля',
+    applePrice: '299 рублей',
+    priceLabel: 'Цена:',
+    aboutBtn: 'О нас'
+  },
+  zh: {
+    storeTitle: 'TSAREV 商店',
+    availability: '泰国有售',
+    factsBtn: 'TSAREV 事实',
+    contactsBtn: '社交网络',
+    startBtn: '开始',
+    navStore: '商店',
+    navBasket: '购物车',
+    buy: '购买',
+    addToCart: '加入购物车',
+    qtyHint: '请选择要购买的包数',
+    capacityNote: '每秒最多 20 人 <span id="capacityCount">0</span>/秒',
+    product1Title: 'TSAREV 芒果',
+    product1Desc: '天然芒果果酱',
+    product1ViewerTitle: 'TSAREV 芒果',
+    product1ViewerDetails: '天然芒果果酱。<br>不含化学成分，不含调味剂，<br>纯水果和配料。<br><br>成分：<br>芒果、糖、高品质果胶、<br>柠檬酸、水。',
+    product2Title: 'TSAREV 绿苹果',
+    product2Desc: '天然绿苹果果酱',
+    product2ViewerTitle: 'TSAREV 绿苹果',
+    product2ViewerDetails: '天然绿苹果果酱。<br>口感柔和、甜度平衡，<br>具有天然苹果风味。<br><br>成分：<br>苹果、糖、HM果胶、<br>柠檬酸、水。',
+    flavorNote: '不含化学成分、含糖的天然果酱',
+    unavailableBadge: '暂时不可用',
+    unavailableAlert: 'TSAREV 芒果口味目前暂时不可用。',
+    mangoPrice: '224 卢布',
+    applePrice: '299 卢布',
+    priceLabel: '价格：',
+    aboutBtn: '关于我们'
+  },
+  jp: {
+    storeTitle: 'TSAREV ストア',
+    availability: 'タイで販売中',
+    factsBtn: 'TSAREV ファクト',
+    contactsBtn: 'SNS',
+    startBtn: 'スタート',
+    navStore: 'ストア',
+    navBasket: 'カート',
+    buy: '購入',
+    addToCart: 'カートに追加',
+    qtyHint: '何パック購入したいか選んでください',
+    capacityNote: '1秒あたり最大20人 <span id="capacityCount">0</span>/秒',
+    product1Title: 'TSAREV マンゴー',
+    product1Desc: '天然マンゴーマーマレード',
+    product1ViewerTitle: 'TSAREV マンゴー',
+    product1ViewerDetails: '天然マンゴーマーマレード。<br>化学物質なし、香料増強剤なし、<br>純粋な果実と材料のみ。<br><br>原材料：<br>マンゴー、砂糖、高品質ペクチン、<br>クエン酸、水。',
+    product2Title: 'TSAREV グリーンアップル',
+    product2Desc: '天然グリーンアップルマーマレード',
+    product2ViewerTitle: 'TSAREV グリーンアップル',
+    product2ViewerDetails: '天然グリーンアップルマーマレード。<br>柔らかな食感、バランスの取れた甘さ、<br>自然なリンゴの味わい。<br><br>原材料：<br>リンゴ、砂糖、HMペクチン、<br>クエン酸、水。',
+    flavorNote: '化学物質を使わず、砂糖を加えた天然マーマレード',
+    unavailableBadge: '一時的にご利用いただけません',
+    unavailableAlert: 'TSAREV マンゴー味は現在一時的にご利用いただけません。',
+    mangoPrice: '224 ルーブル',
+    applePrice: '299 ルーブル',
+    priceLabel: '価格：',
+    aboutBtn: '私たちについて'
+  },
+  th: {
+    storeTitle: 'ร้าน TSAREV',
+    availability: 'มีวางจำหน่ายในประเทศไทย',
+    factsBtn: 'TSAREV ข้อเท็จจริง',
+    contactsBtn: 'โซเชียล',
+    startBtn: 'เริ่ม',
+    navStore: 'ร้าน',
+    navBasket: 'ตะกร้า',
+    buy: 'ซื้อ',
+    addToCart: 'ใส่ตะกร้า',
+    qtyHint: 'เลือกจำนวนห่อที่คุณต้องการ',
+    capacityNote: 'สูงสุด 20 คนต่อวินาที <span id="capacityCount">0</span>/วิ',
+    product1Title: 'TSAREV มะม่วง',
+    product1Desc: 'มาร์มาเลดมะม่วงธรรมชาติ',
+    product1ViewerTitle: 'TSAREV มะม่วง',
+    product1ViewerDetails: 'มาร์มาเลดมะม่วงธรรมชาติ<br>ไม่มีสารเคมี ไม่มีสารเพิ่มรสชาติ<br>ผลไม้และส่วนผสมบริสุทธิ์<br><br>ส่วนผสม:<br>มะม่วง น้ำตาล เพคตินคุณภาพสูง<br>กรดซิตริก น้ำ',
+    product2Title: 'TSAREV แอปเปิ้ลเขียว',
+    product2Desc: 'มาร์มาเลดแอปเปิ้ลเขียวธรรมชาติ',
+    product2ViewerTitle: 'TSAREV แอปเปิ้ลเขียว',
+    product2ViewerDetails: 'มาร์มาเลดแอปเปิ้ลเขียวธรรมชาติ<br>เนื้อนุ่ม หวานพอดี<br>และรสชาติแอปเปิ้ลธรรมชาติ<br><br>ส่วนผสม:<br>แอปเปิ้ล น้ำตาล เพคติน HM<br>กรดซิตริก น้ำ',
+    flavorNote: 'มาร์มาเลดธรรมชาติไม่มีสารเคมี พร้อมน้ำตาล',
+    unavailableBadge: 'ไม่พร้อมใช้งานชั่วคราว',
+    unavailableAlert: 'รสชาติ TSAREV มะม่วง ไม่พร้อมใช้งานชั่วคราวในขณะนี้',
+    mangoPrice: '224 รูเบิล',
+    applePrice: '299 รูเบิล',
+    priceLabel: 'ราคา:',
+    aboutBtn: 'เกี่ยวกับเรา'
+  }
+};
+
+function setLanguage(lang) {
+  if (!translations[lang]) {
+    lang = 'en';
+  }
+
+  currentLang = lang;
+  const data = translations[lang];
+  localStorage.setItem('tsarevLanguage', lang);
+
+  document.querySelectorAll('[data-i18n-key]').forEach(element => {
+    const key = element.dataset.i18nKey;
+    if (!data[key]) return;
+    element.innerHTML = data[key];
+  });
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+}
+
+function initLanguage() {
+  const lang = localStorage.getItem('tsarevLanguage') || 'en';
+  setLanguage(lang);
+  updateCapacityBadge();
+}
+
+window.addEventListener('DOMContentLoaded', initLanguage);
+
+
+</script>
+
+<div class="bottom-nav">
+  <div class="nav-group">
+    <div id="navStore" class="nav-btn active" data-i18n-key="navStore" onclick="openStore()">
+      STORE
+    </div>
+    <div id="navBasket" class="nav-btn" data-i18n-key="navBasket" onclick="window.location.href='basket.html'">
+      BASKET
+    </div>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">🇬🇧 EN</button>
+    <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">🇷🇺 RU</button>
+    <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">🇨🇳 中文</button>
+    <button class="lang-btn" data-lang="jp" onclick="setLanguage('jp')">🇯🇵 日本</button>
+    <button class="lang-btn" data-lang="th" onclick="setLanguage('th')">🇹🇭 ไทย</button>
+  </div>
+</div> 
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-key="pageTitle">TSAREVA Facts</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+body{
+min-height:100vh;
+background:linear-gradient(180deg, #f5f0e8 0%, #e9e2d6 100%);
+color:#2d2d2d;
+}
+.page-wrap{
+max-width:900px;
+margin:0 auto;
+padding:40px 20px 60px;
+}
+.page-title{
+font-size:42px;
+letter-spacing:2px;
+color:#6b4f2f;
+margin-bottom:30px;
+text-align:center;
+}
+.facts-list{
+display:flex;
+flex-direction:column;
+gap:18px;
+max-height:75vh;
+overflow-y:auto;
+padding-right:10px;
+}
+.fact-card{
+background:rgba(255,255,255,0.9);
+border:1px solid rgba(138,92,46,0.12);
+border-radius:24px;
+padding:24px 28px;
+box-shadow:0 15px 40px rgba(0,0,0,0.08);
+font-size:20px;
+line-height:1.7;
+color:#3a3027;
+}
+.fact-card:nth-child(odd){
+background:#fffdf7;
+}
+.fact-card strong{
+color:#8a5c2e;
+}
+.back-btn{
+display:inline-flex;
+margin-top:30px;
+padding:14px 30px;
+background:#8a5c2e;
+color:#fff;
+border:none;
+border-radius:999px;
+font-size:18px;
+font-weight:700;
+text-decoration:none;
+transition:0.3s;
+}
+.back-btn:hover{
+transform:scale(1.02);
+background:#6f8220;
+}
+.lang-switcher{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+margin-bottom:20px;
+}
+
+.lang-btn{
+padding:10px 14px;
+border:1px solid transparent;
+border-radius:999px;
+background:#f4f0e5;
+color:#333;
+font-size:14px;
+font-weight:700;
+cursor:pointer;
+transition:0.2s;
+}
+
+.lang-btn.active{
+border-color:#000;
+background:#fff;
+}
+.scroll-note{
+margin-bottom:20px;
+color:#5f553e;
+font-size:16px;
+text-align:center;
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<div class="lang-switcher">
+  <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">🇬🇧 EN</button>
+  <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">🇷🇺 RU</button>
+  <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">🇨🇳 中文</button>
+  <button class="lang-btn" data-lang="jp" onclick="setLanguage('jp')">🇯🇵 日本</button>
+  <button class="lang-btn" data-lang="th" onclick="setLanguage('th')">🇹🇭 ไทย</button>
+</div>
+<h1 class="page-title" data-i18n-key="pageTitle">TSAREVA Facts</h1>
+<p class="scroll-note" data-i18n-key="scrollNote">Swipe or scroll through the phrases and feel the honest taste of nature.</p>
+<div class="facts-list">
+<div class="fact-card">True flavor requires no illusions, just as a pure soul requires no masks.</div>
+<div class="fact-card">Nature creates perfection; chemistry only tries to mimic it.</div>
+<div class="fact-card">When you strip away the artificial, you finally taste the truth.</div>
+<div class="fact-card">Simplicity is the ultimate sophistication of taste.</div>
+<div class="fact-card">The sweetness of life cannot be rushed by labs; it ripens under the sun.</div>
+<div class="fact-card">Real joy is born from patience, honest fruit, and gentle fire.</div>
+<div class="fact-card">In a world of fast surrogates, purity is an act of rebellion.</div>
+<div class="fact-card">Harmony is when what is sweet to the tongue is kind to the body.</div>
+<div class="fact-card">Pure fruit. Pure thought. Pure life.</div>
+<div class="fact-card">Honest sweetness needs no chemistry.</div>
+<div class="fact-card">The essence of nature, captured in a single drop.</div>
+</div>
+<a class="back-btn" href="index.html" data-i18n-key="backBtn">Back to Store</a>
+</div>
+<script>
+const translations = {
+  en: {
+    pageTitle: 'TSAREVA Facts',
+    scrollNote: 'Swipe or scroll through the phrases and feel the honest taste of nature.',
+    backBtn: 'Back to Store',
+    fact1: 'True flavor requires no illusions, just as a pure soul requires no masks.',
+    fact2: 'Nature creates perfection; chemistry only tries to mimic it.',
+    fact3: 'When you strip away the artificial, you finally taste the truth.',
+    fact4: 'Simplicity is the ultimate sophistication of taste.',
+    fact5: 'The sweetness of life cannot be rushed by labs; it ripens under the sun.',
+    fact6: 'Real joy is born from patience, honest fruit, and gentle fire.',
+    fact7: 'In a world of fast surrogates, purity is an act of rebellion.',
+    fact8: 'Harmony is when what is sweet to the tongue is kind to the body.',
+    fact9: 'Pure fruit. Pure thought. Pure life.',
+    fact10: 'Honest sweetness needs no chemistry.',
+    fact11: 'The essence of nature, captured in a single drop.'
+  },
+  ru: {
+    pageTitle: 'Факты TSAREVA',
+    scrollNote: 'Листайте фразы и почувствуйте честный вкус природы.',
+    backBtn: 'Назад в магазин',
+    fact1: 'Истинный вкус не нуждается в иллюзиях, как чистая душа не нуждается в масках.',
+    fact2: 'Природа создает совершенство; химия лишь пытается его подделать.',
+    fact3: 'Когда вы убираете искусственное, вы наконец ощущаете правду.',
+    fact4: 'Простота — высшая утонченность вкуса.',
+    fact5: 'Сладость жизни нельзя ускорить лабораториями; она созревает под солнцем.',
+    fact6: 'Настоящая радость рождается из терпения, честных плодов и мягкого огня.',
+    fact7: 'В мире быстрых суррогатов чистота — это акт восстания.',
+    fact8: 'Гармония — когда то, что сладко языку, бережно для тела.',
+    fact9: 'Чистый фрукт. Чистая мысль. Чистая жизнь.',
+    fact10: 'Честной сладости не нужна химия.',
+    fact11: 'Сущность природы, запечатленная в одной капле.'
+  },
+  zh: {
+    pageTitle: 'TSAREVA 事实',
+    scrollNote: '滑动或滚动短语，感受自然的真实味道。',
+    backBtn: '返回商店',
+    fact1: '真正的味道不需要幻想，就像纯净的灵魂不需要面具。',
+    fact2: '大自然创造完美；化学只是试图模仿。',
+    fact3: '当你剥离人工的东西时，你终于尝到真相。',
+    fact4: '简单是味道的终极精致。',
+    fact5: '生活的甜美不能被实验室催熟；它在阳光下成熟。',
+    fact6: '真正的快乐源于耐心、诚实的水果和温柔的火。',
+    fact7: '在一个快速替代品的世界里，纯净是一种反叛。',
+    fact8: '和谐就是舌尖喜欢的，也对身体友好。',
+    fact9: '纯水果。纯思想。纯生活。',
+    fact10: '真实的甜美无需化学。',
+    fact11: '自然的本质，凝聚在一滴之中。'
+  },
+  jp: {
+    pageTitle: 'TSAREVA ファクト',
+    scrollNote: 'フレーズをスワイプまたはスクロールして、自然の正直な味を感じてください。',
+    backBtn: 'ストアに戻る',
+    fact1: '本当の味は幻想を必要とせず、純粋な魂は仮面を必要としない。',
+    fact2: '自然は完璧を生み出す。化学はただそれを真似しようとするだけ。',
+    fact3: '人工的なものを取り除くと、ついに真実の味がする。',
+    fact4: 'シンプルさは味の究極の洗練である。',
+    fact5: '人生の甘さは実験室で急かせない。それは太陽の下で熟す。',
+    fact6: '本当の喜びは、忍耐と正直な果物、穏やかな火から生まれる。',
+    fact7: '速い代替品の世界では、純粋さは反逆の行為だ。',
+    fact8: '調和とは、舌に甘いものが体にも優しいことだ。',
+    fact9: '純粋な果実。純粋な思考。純粋な生活。',
+    fact10: '正直な甘さに化学は不要だ。',
+    fact11: '自然の本質が一滴に凝縮されている。'
+  },
+  th: {
+    pageTitle: 'ข้อเท็จจริง TSAREVA',
+    scrollNote: 'ปัดหรือเลื่อนดูวลีและสัมผัสรสชาติธรรมชาติที่ซื่อสัตย์.',
+    backBtn: 'กลับสู่ร้าน',
+    fact1: 'รสชาติที่แท้จริงไม่ต้องการภาพลวงตา เช่นเดียวกับจิตวิญญาณบริสุทธิ์ไม่ต้องการหน้ากาก.',
+    fact2: 'ธรรมชาติสร้างความสมบูรณ์แบบ; เคมีเพียงพยายามเลียนแบบ.',
+    fact3: 'เมื่อคุณลบสิ่งที่เป็นเทียมออก คุณจะได้ลิ้มรสความจริง.',
+    fact4: 'ความเรียบง่ายคือความประณีตขั้นสุดของรสชาติ.',
+    fact5: 'ความหวานของชีวิตไม่สามารถเร่งได้โดยห้องปฏิบัติการ; มันสุกภายใต้แสงแดด.',
+    fact6: 'ความสุขที่แท้จริงเกิดจากความอดทน ผลไม้ที่ซื่อสัตย์ และไฟที่อ่อนโยน.',
+    fact7: 'ในโลกของของเลียนแบบที่รวดเร็ว ความบริสุทธิ์คือการกบฏ.',
+    fact8: 'ความสมดุลคือเมื่อสิ่งที่หวานกับลิ้นเป็นมิตรต่อร่างกายด้วย.',
+    fact9: 'ผลไม้บริสุทธิ์ ความคิดบริสุทธิ์ ชีวิตบริสุทธิ์.',
+    fact10: 'ความหวานที่ซื่อสัตย์ไม่ต้องการเคมี.',
+    fact11: 'แก่นแท้ของธรรมชาติ ถูกจับไว้ในหยดเดียว.'
+  }
+};
+
+function setLanguage(lang) {
+  if (!translations[lang]) {
+    lang = 'en';
+  }
+
+  const data = translations[lang];
+  localStorage.setItem('tsarevLanguage', lang);
+
+  document.querySelectorAll('[data-i18n-key]').forEach(element => {
+    const key = element.dataset.i18nKey;
+    if (!data[key]) return;
+    element.innerText = data[key];
+  });
+
+  document.querySelectorAll('.fact-card').forEach((card, index) => {
+    const factKey = 'fact' + (index + 1);
+    if (data[factKey]) {
+      card.innerText = data[factKey];
+    }
+  });
+
+  document.title = data.pageTitle || document.title;
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+}
+
+function initLanguage() {
+  const lang = localStorage.getItem('tsarevLanguage') || 'en';
+  setLanguage(lang);
+}
+
+window.addEventListener('DOMContentLoaded', initLanguage);
+</script>
+</body>
+</html>

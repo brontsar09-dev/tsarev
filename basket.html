@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title data-i18n-key="pageTitle">TSAREV Basket</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:white;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+height:100vh;
+}
+
+h1{
+font-size:52px;
+margin-bottom:20px;
+}
+
+p{
+font-size:22px;
+color:#777;
+margin-bottom:40px;
+}
+
+button{
+padding:14px 34px;
+border:none;
+border-radius:16px;
+background:black;
+color:white;
+font-size:18px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+</style>
+
+<style>
+
+body{
+font-family:Arial, sans-serif;
+padding:40px;
+background:#f8f8f8;
+}
+
+h1{
+margin-bottom:40px;
+}
+
+#basket-container{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.store-card{
+width:220px;
+background:white;
+border-radius:25px;
+padding:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+}
+
+.store-card img{
+width:100%;
+border-radius:20px;
+}
+
+.store-card h3{
+margin-top:15px;
+font-size:24px;
+}
+
+.store-card p{
+opacity:0.7;
+}
+
+.price{
+font-size:18px;
+font-weight:600;
+margin-top:10px;
+}
+
+.qty-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:8px 0 4px;
+  padding:8px 10px;
+  border:2px solid #d64545;
+  border-radius:999px;
+  background:#fff4f4;
+  color:#b32626;
+  font-size:13px;
+  font-weight:800;
+}
+
+.flavor-tag{
+  color:#5d4b3b;
+  font-size:13px;
+  font-weight:700;
+}
+
+.buy-btn{
+margin-top:15px;
+padding:12px 28px;
+border:none;
+border-radius:14px;
+background:black;
+color:white;
+font-size:16px;
+cursor:pointer;
+width:100%;
+}
+
+.empty-btn{
+background:#c0392b;
+color:white;
+padding:14px 30px;
+border:none;
+border-radius:16px;
+font-size:18px;
+font-weight:600;
+cursor:pointer;
+margin-bottom:25px;
+transition:0.3s;
+}
+
+.empty-btn:hover{
+transform:scale(1.05);
+}
+
+.lang-switcher{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+margin-bottom:20px;
+}
+
+.lang-btn{
+padding:10px 14px;
+border:1px solid transparent;
+border-radius:999px;
+background:#f4f0e5;
+color:#333;
+font-size:14px;
+font-weight:700;
+cursor:pointer;
+transition:0.2s;
+}
+
+.lang-btn.active{
+border-color:#000;
+background:#fff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="lang-switcher">
+  <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">🇬🇧 EN</button>
+  <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">🇷🇺 RU</button>
+  <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">🇨🇳 中文</button>
+  <button class="lang-btn" data-lang="jp" onclick="setLanguage('jp')">🇯🇵 日本</button>
+  <button class="lang-btn" data-lang="th" onclick="setLanguage('th')">🇹🇭 ไทย</button>
+</div>
+
+<h1 data-i18n-key="basketTitle">BASKET</h1>
+
+<button class="empty-btn" data-i18n-key="emptyTrashBtn" onclick="emptyCart()">
+🗑 EMPTY TRASH
+</button>
+
+<br><br>
+
+<div id="basket-container"></div>
+
+<button data-i18n-key="backBtn" onclick="window.location.href='index.html'">
+Back to Store
+</button>
+
+<script>
+const translations = {
+  en: {
+    pageTitle: 'TSAREV Basket',
+    basketTitle: 'BASKET',
+    emptyTrashBtn: '🗑 EMPTY TRASH',
+    backBtn: 'Back to Store',
+    buy: 'BUY',
+    mangoPrice: '224 rubles',
+    applePrice: '299 rubles',
+    product1Title: 'TSAREV Mango',
+    product1Desc: 'Natural mango marmalade',
+    product2Title: 'TSAREV Green Apple',
+    product2Desc: 'Natural green apple marmalade'
+  },
+  ru: {
+    pageTitle: 'Корзина TSAREV',
+    basketTitle: 'КОРЗИНА',
+    emptyTrashBtn: '🗑 ОЧИСТИТЬ',
+    backBtn: 'Назад в магазин',
+    buy: 'КУПИТЬ',
+    mangoPrice: '224 рубля',
+    applePrice: '299 рублей',
+    product1Title: 'TSAREV Манго',
+    product1Desc: 'Натуральный манговый мармелад',
+    product2Title: 'TSAREV Зеленое яблоко',
+    product2Desc: 'Натуральный мармелад из зеленого яблока'
+  },
+  zh: {
+    pageTitle: 'TSAREV 购物车',
+    basketTitle: '购物车',
+    emptyTrashBtn: '🗑 清空',
+    backBtn: '返回商店',
+    buy: '购买',
+    mangoPrice: '224 卢布',
+    applePrice: '299 卢布',
+    product1Title: 'TSAREV 芒果',
+    product1Desc: '天然芒果果酱',
+    product2Title: 'TSAREV 绿苹果',
+    product2Desc: '天然绿苹果果酱'
+  },
+  jp: {
+    pageTitle: 'TSAREV バスケット',
+    basketTitle: 'バスケット',
+    emptyTrashBtn: '🗑 空にする',
+    backBtn: 'ストアに戻る',
+    buy: '購入',
+    mangoPrice: '224 ルーブル',
+    applePrice: '299 ルーブル',
+    product1Title: 'TSAREV マンゴー',
+    product1Desc: '天然マンゴーマーマレード',
+    product2Title: 'TSAREV グリーンアップル',
+    product2Desc: '天然グリーンアップルマーマレード'
+  },
+  th: {
+    pageTitle: 'ตะกร้า TSAREV',
+    basketTitle: 'ตะกร้า',
+    emptyTrashBtn: '🗑 ล้าง',
+    backBtn: 'กลับสู่ร้าน',
+    buy: 'ซื้อ',
+    mangoPrice: '224 รูเบิล',
+    applePrice: '299 รูเบิล',
+    product1Title: 'TSAREV มะม่วง',
+    product1Desc: 'มาร์มาเลดมะม่วงธรรมชาติ',
+    product2Title: 'TSAREV แอปเปิ้ลเขียว',
+    product2Desc: 'มาร์มาเลดแอปเปิ้ลเขียวธรรมชาติ'
+  }
+};
+
+const productCatalog = {
+  mango: {
+    img: 'marmalade1.jpg',
+    titleKey: 'product1Title',
+    descKey: 'product1Desc',
+    priceKey: 'mangoPrice',
+    price: '224 руб.'
+  },
+  apple: {
+    img: 'apple1.jpg',
+    titleKey: 'product2Title',
+    descKey: 'product2Desc',
+    priceKey: 'applePrice',
+    price: '299 руб.'
+  }
+};
+
+function setLanguage(lang) {
+  if (!translations[lang]) {
+    lang = 'en';
+  }
+
+  const data = translations[lang];
+  localStorage.setItem('tsarevLanguage', lang);
+
+  document.querySelectorAll('[data-i18n-key]').forEach(element => {
+    const key = element.dataset.i18nKey;
+    if (!data[key]) return;
+    element.innerText = data[key];
+  });
+
+  document.title = data.pageTitle || document.title;
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  renderCart();
+}
+
+function renderCart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const container = document.getElementById('basket-container');
+  const lang = localStorage.getItem('tsarevLanguage') || 'en';
+  const data = translations[lang];
+
+  container.innerHTML = '';
+
+  cart.forEach(item => {
+    const product = productCatalog[item.productId];
+    if (!product) return;
+
+    const quantity = Number(item.quantity || 1);
+    const card = document.createElement('div');
+    card.className = 'store-card';
+    card.innerHTML = `
+      <img src="${product.img}">
+      <h3>${data[product.titleKey]}</h3>
+      <p>${data[product.descKey]}</p>
+      <div class="qty-chip">${quantity} packs</div>
+      <div class="flavor-tag">Flavor: ${data[product.titleKey]}</div>
+      <div class="price">${data[product.priceKey] || product.price}</div>
+      <button class="buy-btn" onclick="goBuy(event, '${item.productId}', ${quantity})">${data.buy}</button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function initLanguage() {
+  const lang = localStorage.getItem('tsarevLanguage') || 'en';
+  setLanguage(lang);
+}
+
+function goBuy(event, productId = 'mango', quantity = 1){
+  event.stopPropagation();
+  localStorage.setItem('tsarevPendingOrder', JSON.stringify([{ productId, quantity }]));
+  window.location.href = "buy.html";
+}
+
+function emptyCart(){
+  localStorage.removeItem("cart");
+  document.getElementById("basket-container").innerHTML = "";
+}
+
+window.addEventListener('DOMContentLoaded', initLanguage);
+</script>
+
+</body>

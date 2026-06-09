@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-key="pageTitle">About TSAREV</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
+body{min-height:100vh;background:linear-gradient(135deg,#fffaf4 0%, #efe5d7 45%, #f6efe7 100%);color:#2f2419;}
+.page-wrap{max-width:980px;margin:0 auto;padding:36px 18px 60px;}
+.lang-switcher{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center;margin-bottom:18px;}
+.lang-btn{padding:10px 14px;border:1px solid transparent;border-radius:999px;background:#f4f0e5;color:#333;font-size:14px;font-weight:700;cursor:pointer;transition:0.2s;}
+.lang-btn.active{border-color:#000;background:#fff;}
+.card{background:rgba(255,255,255,0.95);border:1px solid rgba(138,92,46,0.15);border-radius:30px;padding:30px;box-shadow:0 20px 50px rgba(0,0,0,0.08);}
+.eyebrow{display:inline-block;padding:8px 12px;border-radius:999px;background:#fff4df;color:#8a5c2e;font-weight:800;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;}
+h1{font-size:42px;line-height:1.1;color:#6b4f2f;margin:14px 0 10px;}
+.lead{font-size:20px;line-height:1.8;color:#5b4d3d;max-width:780px;margin-bottom:18px;}
+.story-box{background:linear-gradient(145deg,#fffdfa,#f7efe6);border:1px solid #efe3d3;border-radius:24px;padding:18px 18px 8px;display:flex;flex-direction:column;gap:12px;}
+.story-box p{font-size:18px;line-height:1.8;color:#3c3126;}
+.highlight{display:inline-block;padding:8px 12px;border-radius:999px;background:#8a5c2e;color:#fff;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;}
+.back-btn{display:inline-flex;margin-top:22px;padding:14px 26px;background:#8a5c2e;color:#fff;border:none;border-radius:999px;font-size:17px;font-weight:700;text-decoration:none;transition:0.3s;}
+.back-btn:hover{transform:scale(1.02);background:#6f8220;}
+@media (max-width: 768px){h1{font-size:32px;} .lead,.story-box p{font-size:17px;} .card{padding:22px;}}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">🇬🇧 EN</button>
+    <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">🇷🇺 RU</button>
+    <button class="lang-btn" data-lang="zh" onclick="setLanguage('zh')">🇨🇳 中文</button>
+    <button class="lang-btn" data-lang="jp" onclick="setLanguage('jp')">🇯🇵 日本</button>
+    <button class="lang-btn" data-lang="th" onclick="setLanguage('th')">🇹🇭 ไทย</button>
+  </div>
+
+  <div class="card">
+    <span class="eyebrow" data-i18n-key="eyebrow">About TSAREV</span>
+    <h1 data-i18n-key="pageTitle">About TSAREV</h1>
+    <p class="lead" data-i18n-key="lead">We are natural marmalade — pure, honest, and free from chemistry and artificial additives.</p>
+
+    <div class="story-box">
+      <span class="highlight" data-i18n-key="tag">Our story</span>
+      <p data-i18n-key="story1">We are TSAREV — natural marmalade made without chemistry, without artificial additives, and with real fruit in every spoon.</p>
+      <p data-i18n-key="story2">This wonderful brand began when Daniel, just 11 years old, started turning his idea into something real. He was coming back from boxing training, and one simple moment turned into a bigger dream — a brand built on care, freshness, and natural flavor.</p>
+      <p data-i18n-key="story3">Every jar is made with love, honesty, and the belief that simple ingredients can create something truly special.</p>
+    </div>
+
+    <a class="back-btn" href="index.html" data-i18n-key="backBtn">Back to Store</a>
+  </div>
+</div>
+
+<script>
+const translations = {
+  en: {
+    pageTitle: 'About TSAREV',
+    eyebrow: 'About TSAREV',
+    lead: 'We are natural marmalade — pure, honest, and free from chemistry and artificial additives.',
+    tag: 'Our story',
+    story1: 'We are TSAREV — natural marmalade made without chemistry, without artificial additives, and with real fruit in every spoon.',
+    story2: 'This wonderful brand began when Daniel, just 11 years old, started turning his idea into something real. He was coming back from boxing training, and one simple moment turned into a bigger dream — a brand built on care, freshness, and natural flavor.',
+    story3: 'Every jar is made with love, honesty, and the belief that simple ingredients can create something truly special.',
+    backBtn: 'Back to Store'
+  },
+  ru: {
+    pageTitle: 'О TSAREV',
+    eyebrow: 'О нас',
+    lead: 'Мы — натуральный мармелад: чистый, честный и без химии, без химических добавок.',
+    tag: 'Наша история',
+    story1: 'Мы — TSAREV, натуральный мармелад без химии, без искусственных добавок и с настоящими фруктами в каждой ложке.',
+    story2: 'Этот прекрасный бренд начался тогда, когда Даниэль, ему было всего 11 лет, начал превращать свою идею в реальный проект. Он возвращался с тренировки по боксу, и один простой момент стал большой мечтой — брендом, который строится на заботе, свежести и настоящем вкусе.',
+    story3: 'Каждая баночка создаётся с любовью, честностью и верой в то, что простые ингредиенты могут стать чем-то по-настоящему особенным.',
+    backBtn: 'Назад в магазин'
+  },
+  zh: {
+    pageTitle: '关于 TSAREV',
+    eyebrow: '关于我们',
+    lead: '我们是天然果酱——纯净、真实、不含化学和人工添加剂。',
+    tag: '我们的故事',
+    story1: '我们是 TSAREV —— 纯天然果酱，不含化学成分，不含人工添加剂，每一勺都是真正的水果。',
+    story2: '这个美丽的品牌始于丹尼尔11岁时开始把自己的想法变成现实的那一刻。那时他正从拳击训练回来，而一个简单的瞬间，成了更大的梦想——一个建立在关怀、新鲜与自然风味上的品牌。',
+    story3: '每一罐都充满爱、诚实和信念：简单的原料也能做出真正特别的东西。',
+    backBtn: '返回商店'
+  },
+  jp: {
+    pageTitle: 'TSAREVについて',
+    eyebrow: '私たちについて',
+    lead: '私たちは天然マーマレードです — 純粋で誠実で、化学物質や人工添加物を含みません。',
+    tag: '私たちの物語',
+    story1: '私たちは TSAREV — 化学物質や人工添加物を使わず、毎一杯に本物の果実を感じる天然マーマレードです。',
+    story2: 'この素晴らしいブランドは、ダニエルがまだ11歳の時に、自分のアイデアを現実のものにし始めたことから始まりました。ボクシングのトレーニングから帰る途中のひとつの瞬間が、ケアと新鮮さ、自然な味わいを大切にしたブランドという大きな夢へと変わりました。',
+    story3: '毎瓶は愛と誠実さ、そしてシンプルな素材が本当に特別なものになるという信念で作られています。',
+    backBtn: 'ストアに戻る'
+  },
+  th: {
+    pageTitle: 'เกี่ยวกับ TSAREV',
+    eyebrow: 'เกี่ยวกับเรา',
+    lead: 'เราคือมาร์มาเลดธรรมชาติ — บริสุทธิ์ ซื่อสัตย์ และไม่มีสารเคมีหรือสารเติมแต่งจากสารเคมี',
+    tag: 'เรื่องราวของเรา',
+    story1: 'เราเป็น TSAREV — มาร์มาเลดธรรมชาติที่ไม่มีสารเคมี ไม่มีสารเติมแต่ง และมีผลไม้แท้ในทุกช้อน',
+    story2: 'แบรนด์ที่น่าทึ่งนี้เริ่มต้นขึ้นเมื่อแดเนียลวัยเพียง 11 ปี เริ่มเปลี่ยนความคิดของตัวเองให้กลายเป็นสิ่งที่เป็นจริง เขากลับมาจากการฝึกมวย และช่วงเวลาที่ยังเล็กน้อยนั้นได้กลายเป็นความฝันใหญ่ขึ้น — แบรนด์ที่สร้างจากความเอาใจใส่ ความสดใหม่ และรสชาติธรรมชาติ',
+    story3: 'ทุกขวดถูกสร้างด้วยความรัก ความซื่อสัตย์ และความเชื่อที่ว่าสารผสมที่เรียบง่ายสามารถสร้างสิ่งพิเศษได้จริง',
+    backBtn: 'กลับสู่ร้าน'
+  }
+};
+
+function setLanguage(lang) {
+  if (!translations[lang]) lang = 'en';
+  const data = translations[lang];
+  localStorage.setItem('tsarevLanguage', lang);
+  document.querySelectorAll('[data-i18n-key]').forEach(el => {
+    const key = el.dataset.i18nKey;
+    if (data[key]) el.textContent = data[key];
+  });
+  document.title = data.pageTitle || document.title;
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+}
+
+function initLanguage(){ setLanguage(localStorage.getItem('tsarevLanguage') || 'en'); }
+window.addEventListener('DOMContentLoaded', initLanguage);
+</script>
+</body>
+</html>
